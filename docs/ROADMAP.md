@@ -18,35 +18,43 @@ was a shame not to be able to do "reverse" tests. The idea is that once we have 
 can test with "random" or "unexpected" variables, if the test fails it means everything is fine. The idea here is to
 take this up by offering “reverse” tests based on the lock tests.
 
-## Tâches à faire
+## Architecture
+
+The plugin has his own cache system to store the result of the tests. Modules, classes must be able to easily support
+additions (such as configurations, unforeseen functionality) through the use of design patterns
+
+## Tasks
 
 ### branch: *"feature/lock-fixture"*
 
 * **Status:** _Not started_
-* **Note:** Branch containing the base of the pytest fixture 'lock', it must be able to easily integrate new functions, CLI
-arguments, etc…
+* **Note:** Branch containing the base of the pytest fixture 'lock', it must be able to easily integrate new functions,
+  CLI
+  arguments, etc…
 
-- [ ] Add fixtures `lock`
+- [X] Add fixtures `lock`
 
 ### branch: *"feature/fixtures-lock-method"*
 
-* **Status:** _Not started_
+* **Status:** _Started_
 * **Note:** This branch requires that the branch "feature/lock-fixture" be finalized.
 
 - [ ] Add fixtures method `lock.lock` to lock the result of a test to a cache file
-    - [ ] If test use `lock.lock` and result was not locked, pytest exception is raised
-    - [ ] If test use `lock.lock` result is in the cache file and is the same as the result of the test, test is valid
-    - [ ] If test use `lock.lock` result is in the cache file and is not the same as the result of the test, test is
-      invalid
-    - [ ] If test use `lock.lock` and `--lock` in cli argument, then lock the result of the test to a cache file (Any
+    - [X] If test use `lock.lock` and result was not locked, exception is thrown
+    - [X] If test use `lock.lock` result is in the cache file and is the same as the result of the test, test is valid
+    - [X] If test use `lock.lock` result is in the cache file and is not the same as the result of the test, test is
+      invalid (failed)
+    - [X] If test use `lock.lock` and `--lock` in cli argument, then start test and lock the result in cache file (Any
       result with __str__ method and Exception are supported)
+    - [ ] If test use `lock.lock` and `--simulate` in cli argument, then simulate the result of the test, not write to the cache file.
+    - [X] If test use `--simulate` argument and not `--lock` argument, then it's invalid, throw exception
 
 ### branch: *"feature/fixture-lock-date-support"*
 
-* **Status:** _Not started_
+* **Status:** _Started_
 * **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
 
-- [ ] Add support for `pytest --lock --lock-date 13/12/2023`, if test has `lock` fixture, then lock the result of the
+- [X] Add support for `pytest --lock --lock-date 13/12/2023`, if test has `lock` fixture, then lock the result of the
   test to a cache file with the date of the lock, if date was expired, then the test is skipped
 
 ### branch: *"feature/fixture-reversed-method"*
@@ -55,8 +63,7 @@ arguments, etc…
 * **Note:** This branch requires that the branch "feature/lock-fixture" be finalized.
 
 - [ ] Add fixtures method `lock.reversal` to reverse test with random or unexpected variables
-    - [ ] If test use `lock.reversed` and `--lock --reversed` argument, then argument 'reversed' is useless, throw an
-      exception
+    - [ ] If test use `lock.reversed` and `--lock` argument, the argument is useless, skip.
     - [ ] If test has `lock.reversed` and `--reversed` argument
         - [ ] If the result was not locked the plugin will skip the test
         - [ ] If the result was locked the plugin will check the type of the arguments of lock, if the test have
@@ -66,6 +73,8 @@ arguments, etc…
       Note :
 
 ## Examples to test
+
+### Lock tests examples
 
 ```py 
 from typing import List
@@ -97,6 +106,8 @@ def test_something_5(lock: FixtureLock):
     ...
 ``` 
 
+### Running tests examples
+
 ```bash
 pytest
 ```
@@ -106,13 +117,13 @@ pytest --lock
 ```
 
 ```bash
+pytest --lock --simulate
+```
+
+```bash
+pytest --lock --only-skip
+```
+
+```bash
 pytest --lock --lock-date 13/12/2023
-```
-
-```bash
-pytest --reversed
-```
-
-```bash
-pytest --lock --reversed
 ```
