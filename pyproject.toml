@@ -17,7 +17,7 @@ pytest = "^7.4.3"
 [tool.poetry.group.dev.dependencies]
 python = "3.12"
 pytest = "^7.4.3"
-coverage = "^7.4.0"  # best than pytest-cov (best detection with pytester)
+coverage = "^7.4.0"  # better than pytest-cov (the best detection with pytester)
 ruff = "^0.1.9"
 bandit = "^1.7.6"
 mypy = "^1.8.0"
@@ -39,12 +39,13 @@ build-backend = "poetry.core.masonry.api"
 pytest-lock = "pytest_lock.plugin"
 
 [tool.pytest.ini_options]
-addopts = ["-k", "not scenarios", "-vv"]
+addopts = ["-k", "not scenarios", "-vv", '--doctest-modules']
 pytester_example_dir = "./tests"
 norecursedirs = ["scenarios/*"]
-
 
 [tool.bandit]
 targets = ["src"]
 exclude_dirs = ["tests"]
-skips = ["B101"]  # https://stackoverflow.com/questions/68428293/s101-use-of-assert-detected-for-python-tests
+skips = [
+    "B101",  # https://stackoverflow.com/questions/68428293/s101-use-of-assert-detected-for-python-tests
+]

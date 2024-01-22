@@ -1,0 +1,2 @@
+- Quand on utilise un path arbitraire, il faut attendre d'utiliser pytest-lock dans un autre projet pour ce rendre compte de l'erreur
+- Il faut que lock.lock avec --lock passe les tests n'utilisant pas la lock fixture et passe les tests skip a passed, cela permet d'évité l'erreur commune de ne pas pouvoir lock plusieurs test dans une fonction de test en même temps car skip empêche le lock de la fonction de test suivante

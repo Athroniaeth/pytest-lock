@@ -54,7 +54,7 @@ jobs:
         run: poetry install
 
       - name: Run Ruff (Linting)
-        run: poetry run ruff check ./src ./tests
+        run: poetry run ruff check
 
   bandit-security:
     runs-on: ubuntu-latest
@@ -113,3 +113,14 @@ jobs:
 
       - name: Run Coverage (Report)
         run: poetry run coverage report -m --fail-under=50
+
+      - name: Run Coverage (HTML Report)
+        run: poetry run coverage html
+
+      - name: Run Coverage (Codecov Report)
+        run: poetry run coverage xml
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

@@ -36,7 +36,7 @@ jobs:
         run: poetry run ruff format ./src ./tests
 
       - name: Run Ruff (Linting)
-        run: poetry run ruff check ./src ./tests
+        run: poetry run ruff check
 
       - name: Run Bandit (Security Analysis)
         run: poetry run bandit -c pyproject.toml -r src
@@ -48,7 +48,7 @@ jobs:
         run: poetry run coverage run --source=src -m pytest
 
       - name: Run Coverage (Report)
-        run: poetry run coverage report -m --fail-under=50
+        run: poetry run coverage report -m --fail-under=90
 
   publish:
     needs: build-and-test

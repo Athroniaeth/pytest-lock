@@ -3,27 +3,37 @@ from pathlib import Path
 
 import pytest
 from pytest_lock import FixtureLock
-from pytest_lock.core.cache import CacheLock
-from pytest_lock.core.config import LockConfig
-from pytest_lock.core.parser_file.builder import ParserFileBuilder
+from pytest_lock.plugin import _lock
 
 pytest_plugins = ["pytester"]
 
 
 @pytest.fixture(scope="function")
 def lock_test(pytestconfig: pytest.Config, request: pytest.FixtureRequest) -> FixtureLock:
-    ENV_TESTS_PATH = Path(__name__).parent.absolute()
-    ENV_CACHE_LOCK_PATH = ENV_TESTS_PATH / ".pytest_lock"
-    EXTENSION = ".json"
+    """
+    Fixture to give access to lock feature.
 
-    config = LockConfig(pytestconfig, request, extension=EXTENSION, tests_path=ENV_TESTS_PATH, cache_path=ENV_CACHE_LOCK_PATH)
+    Note:
+        Without this manipulation, the plugin don't work if we want to test it.
 
-    parser_file_builder = ParserFileBuilder()
-    parser_file = parser_file_builder.build(EXTENSION)
-    cache_system = CacheLock(config, parser_file)
+    Args:
+        pytestconfig (Config): Pytest configuration.
+        request (FixtureRequest): Pytest request.
 
-    lock_fixture = FixtureLock(config, cache_system)
+    Returns:
+        FixtureLock: Lock fixture.
+    """
+    # Use pytestconfig and request of test function
+    env_tests_path = Path(__name__).parent.absolute()
+    env_cache_lock_path = env_tests_path / ".pytest_lock"
+    extension = ".json"
+
+    lock_fixture = _lock(  # noqa: F841
+        pytestconfig=pytestconfig,
+        request=request,
+        tests_path=env_tests_path,
+        cache_path=env_cache_lock_path,
+        extension=extension,
+    )
 
     yield lock_fixture
-
-    # Delete cache file

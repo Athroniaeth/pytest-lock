@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="422c49e2-9ca5-4db1-ae2c-9a045292ba11" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pytest_lock/fixtures/lock.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pytest_lock/fixtures/lock.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pytest_lock/fixtures/reversed.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pytest_lock/fixtures/reversed.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pytest_lock/parser_file/json.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/pytest_lock/parser_file/json.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +28,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 7
@@ -34,39 +40,95 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;Python tests.Python tests for acceptations.test_cli_argument.test_bad_arguments.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for units.test_lock_cache.test_creation_cache.executor&quot;: &quot;Debug&quot;,
-    &quot;Python tests.Python tests for units.test_lock_cache.test_creation_cache_parser.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for units.test_lock_change_date.test_lock_change_date_today.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.Python tests for units.test_lock_change_result.test_creation_cache.executor&quot;: &quot;Run&quot;,
-    &quot;Python tests.pytest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/pierr/OneDrive/Bureau/pytest-lock/tests&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Python docs.sphinx.executor": "Run",
+    "Python tests.Doctests in lock.executor": "Run",
+    "Python tests.Python tests for acceptations.test_cli_argument.test_bad_arguments.executor": "Run",
+    "Python tests.Python tests for units.test_lock_cache.test_creation_cache.executor": "Debug",
+    "Python tests.Python tests for units.test_lock_cache.test_creation_cache_parser.executor": "Run",
+    "Python tests.Python tests for units.test_lock_change_date.test_lock_change_date_today.executor": "Run",
+    "Python tests.Python tests for units.test_lock_change_result.test_creation_cache.executor": "Run",
+    "Python tests.pytest for units.dataclass.test_lock.test_lock_eq_error.executor": "Run",
+    "Python tests.pytest for units.test_lock.test_lock_update.executor": "Run",
+    "Python tests.pytest for units.test_lock_simulate.test_lock_change_date_today.executor": "Run",
+    "Python tests.pytest.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Shell Script.Unnamed.executor": "Run",
+    "Shell Script.bandit.executor": "Run",
+    "Shell Script.coverage html.executor": "Run",
+    "Shell Script.coverage pytest.executor": "Run",
+    "Shell Script.coverage report.executor": "Run",
+    "Shell Script.coverage.executor": "Run",
+    "Shell Script.html.executor": "Run",
+    "Shell Script.poetry build.executor": "Run",
+    "Shell Script.poetry install.executor": "Run",
+    "Shell Script.poetry lock .executor": "Run",
+    "Shell Script.pytest.executor": "Run",
+    "Shell Script.ruff check.executor": "Run",
+    "Shell Script.ruff format.executor": "Run",
+    "Shell Script.test.executor": "Run",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/pierr/OneDrive/Bureau/pytest-lock",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "database.other",
+    "tox.tox pytest.executor": "Run",
+    "tox.tox.executor": "Run",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="QodanaReportsService">
+    <option name="descriptions">
+      <ReportDescription localRun="true" path="C:\Users\pierr\AppData\Local\Temp\qodana_output\qodana.sarif.json" reportGuid="8a51377c-c1c7-4454-89e5-77ded4661f86" reportId="pytest-lock/qodana/2024-01-21" />
+    </option>
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\tests" />
+      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock" />
+      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\docs\markdown" />
       <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\docs" />
-      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\.github\workflows" />
+      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\docs\tutorials" />
       <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\tests\units" />
-      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\tests\scenarios" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\docs" />
-      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\tests\scenarios\lock_change_result" />
+      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\docs\common_error" />
+      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\docs\markdown" />
+      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock" />
+      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\scripts" />
+      <recent name="C:\Users\pierr\OneDrive\Bureau\pytest-lock\src\pytest_lock" />
     </key>
+  </component>
+  <component name="RunManager" selected="tox.tox">
+    <configuration name="sphinx" type="docs" factoryName="Sphinx task">
+      <module name="pytest-lock" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="C:\Users\pierr\AppData\Local\pypoetry\Cache\virtualenvs\poetry-lock-1XD7cA0J-py3.12\Scripts\python.exe" />
+      <option name="SDK_NAME" value="Poetry (pytest-lock)" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="docutils_input_file" value="docs/" />
+      <option name="docutils_output_file" value="docs/build/" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="html" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python docs.sphinx" />
+      <item itemvalue="Python tests.pytest" />
+      <item itemvalue="tox.tox" />
+    </list>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -89,6 +151,15 @@
       <workItem from="1705356663026" duration="3567000" />
       <workItem from="1705489102648" duration="174000" />
       <workItem from="1705489292172" duration="1337000" />
+      <workItem from="1705709855388" duration="142000" />
+      <workItem from="1705710011492" duration="2839000" />
+      <workItem from="1705755302780" duration="307000" />
+      <workItem from="1705766498880" duration="4588000" />
+      <workItem from="1705827247301" duration="4088000" />
+      <workItem from="1705832260873" duration="8957000" />
+      <workItem from="1705843800625" duration="7288000" />
+      <workItem from="1705884595334" duration="3037000" />
+      <workItem from="1705887761677" duration="2112000" />
     </task>
     <servers />
   </component>
@@ -109,15 +180,32 @@
           <option name="timeStamp" value="16" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/pytest_lock/core/config.py</url>
-          <line>44</line>
+          <url>file://$PROJECT_DIR$/src/pytest_lock/config.py</url>
+          <line>72</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/units/test_lock_simulate.py</url>
+          <line>10</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/pytest_lock/models/cache/lock.py</url>
+          <line>66</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/pytest_lock$.coverage" NAME=" Coverage Results" MODIFIED="1705261365422" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
-    <SUITE FILE_PATH="coverage/pytest_lock$pytest.coverage" NAME="pytest Coverage Results" MODIFIED="1705358185886" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/pytest_lock$tox_pytest.coverage" NAME="tox pytest Coverage Results" MODIFIED="1705848206970" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/pytest_lock$pytest_for_units_test_lock_simulate_test_lock_change_date_today.coverage" NAME="pytest for units.test_lock_simulate.test_lock_change_date_today Coverage Results" MODIFIED="1705769880869" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/pytest_lock$Doctests_in_lock.coverage" NAME="Doctests in lock Coverage Results" MODIFIED="1705838356554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/pytest_lock/fixtures" />
+    <SUITE FILE_PATH="coverage/pytest_lock$pytest_for_units_test_lock_test_lock_update.coverage" NAME="pytest for units.test_lock.test_lock_update Coverage Results" MODIFIED="1705840881913" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/pytest_lock$tox.coverage" NAME="tox Coverage Results" MODIFIED="1705891312562" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/pytest_lock$pytest.coverage" NAME="pytest Coverage Results" MODIFIED="1705890616615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/pytest_lock$pytest_for_units_dataclass_test_lock_test_lock_eq_error.coverage" NAME="pytest for units.dataclass.test_lock.test_lock_eq_error Coverage Results" MODIFIED="1705769960027" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/pytest_lock$sphinx.coverage" NAME="sphinx Coverage Results" MODIFIED="1705885465181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
 </project>
