@@ -23,6 +23,9 @@ bandit = "^1.7.6"
 mypy = "^1.8.0"
 tox = "^4.12.0"
 
+[tool.poetry.group.docs]
+optional = true
+
 [tool.poetry.group.docs.dependencies]
 sphinx = [
     { version = "<7.2.6", python = "<3.9" },
