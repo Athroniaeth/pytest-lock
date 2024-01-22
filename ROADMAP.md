@@ -55,6 +55,13 @@ additions (such as configurations, unforeseen functionality) through the use of 
 - [X] Add support for `pytest --lock --lock-date 13/12/2023`, if test has `lock` fixture, then lock the result of the
   test to a cache file with the date of the lock, if date was expired, then the test is skipped
 
+### branch: *"feature/fixture-lock-improve-skip"*
+
+* **Status:** _Not Started_
+* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
+
+- [ ] `lock.lock` with `--lock` must pass tests that don't use the lock fixture and return tests that were **skipped** to **passed**. This avoids the know issue of not being able to lock several tests with `lock.lock` in a single test function at the same time, as **skip** acts like **failed** and prevents the test from being executed.
+
 ### branch: *"feature/fixture-reversed-method"*
 
 * **Status:** _Not started_
