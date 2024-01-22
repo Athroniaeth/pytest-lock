@@ -1,11 +1,15 @@
+# Max line length of code
 line-length = 150
-# Read more here https://beta.ruff.rs/docs/rules/
-# By default, Ruff enables Flake8's E and F rules
-# Pyflakes - F, pycodestyle - E, W
-# flake8-builtins - A
-# Pylint - PLC, PLE, PLW
-# isort - I
-# Docstrings - D
+
+# Assume Python 3.12
+target-version = "py312"
+
+# Target only the src, tests files
+include = [
+    "src/**/*.py",
+]
+
+# Select some errors
 select = [
     'E',    # Syntax errors
     'F',    # Pyflakes
@@ -15,5 +19,14 @@ select = [
     'PLE',  # Pylint
     'PLW',  # Pylint
     'I',    # isort
-    'D',    # Docstrings
+    'D101',    # Missing docstring in public class
+    'D102',    # Missing docstring in public method
+    'D103',    # Missing docstring in public function
+    'D104',    # Missing docstring in public package
+]
+
+# Ignore some errors
+ignore = [
+    'D100',  # Missing docstring in public module
+    'D212',  # Multi-line docstring summary should start at the first line
 ]

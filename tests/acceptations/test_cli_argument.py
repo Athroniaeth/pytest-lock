@@ -15,7 +15,7 @@ from pytest_lock.models.exceptions import LockCLIException
 )
 def test_bad_arguments(pytester: Pytester, arguments: List[str]):
     pytester.copy_example("conftest.py")
-    pytester.copy_example("scenarios/test_classic_lock.py")
+    pytester.copy_example("scenarios/test_fixture_call.py")
 
     result = pytester.runpytest(*arguments)
     result.assert_outcomes(errors=1)
@@ -36,7 +36,7 @@ def test_bad_arguments(pytester: Pytester, arguments: List[str]):
 )
 def test_good_arguments(pytester: Pytester, arguments: List[str]):
     pytester.copy_example("conftest.py")
-    pytester.copy_example("scenarios/test_classic_lock.py")
+    pytester.copy_example("scenarios/test_fixture_call.py")
 
     result = pytester.runpytest(*arguments)
 
