@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+
 # Configuration file for the Sphinx documentation builder.
 #
 # For the full list of built-in configuration values, see the documentation:
@@ -5,6 +8,9 @@
 
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
+
+path = Path(__file__).parents[1].absolute()
+sys.path.insert(0, f'{path}')
 
 project = 'pytest-lock'
 copyright = '2024, Athroniaeth'

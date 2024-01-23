@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "poetry-lock"
-version = "0.1.0"
+name = "pytest-lock"
+version = "0.1.0.1"
 description = "pytest-lock is a pytest plugin that allows you to \"lock\" the results of unit tests, storing them in a local cache. This is particularly useful for tests that are resource-intensive or don't need to be run every time. When the tests are run subsequently, pytest-lock will compare the current results with the locked results and issue a warning if there are any discrepancies."
 authors = ["CHAUMONT Pierre <pierre.chaumont@scalian.com>"]
 license = "MIT"
