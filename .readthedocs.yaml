@@ -8,7 +8,7 @@ build:
   jobs:
     pre_create_environment:
       - pip install poetry
-      - poetry config virtualenvs.create false
+      # - poetry config virtualenvs.create false
       - poetry install --with docs
       - poetry export --without-hashes --format=requirements.txt --only=docs > requirements.txt
       - pip install -r requirements.txt
