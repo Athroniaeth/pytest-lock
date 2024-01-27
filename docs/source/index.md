@@ -21,31 +21,28 @@ pip install pytest-lock
 ```
 
 ```{toctree}
+:glob:
 :hidden:
 :maxdepth: 2
 :caption: Tutorials
 
-./tutorials/lock.md
-./tutorials/lock_simulate.md
-./tutorials/lock_only_skip.md
-./tutorials/lock_date.md
+tutorials/*
 ```
 
 ```{toctree}
+:glob:
 :hidden:
 :maxdepth: 2
-:caption: Common problems
+:caption: Know issues
 
-./common_problems/locking_collision.md
+known_issues/*
 ```
 
 ```{toctree}
+:glob:
 :hidden:
 :maxdepth: 2
 :caption: Development
 
-./markdown/ROADMAP.md
-./markdown/CHANGELOG.md
-./markdown/CONTRIBUTING.md
-./markdown/CODE_OF_CONDUCT.md
+markdown/*
 ```
