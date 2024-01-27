@@ -1,8 +1,13 @@
 import warnings
 from abc import ABC
-from typing import Any, Callable, Tuple, override
+from typing import Any, Callable, Tuple
 
 from pytest_lock.fixtures.base import FixtureBase
+
+try:
+    from typing import override
+except ImportError:
+    from typing_extensions import override
 
 
 class MixinReversed(FixtureBase, ABC):

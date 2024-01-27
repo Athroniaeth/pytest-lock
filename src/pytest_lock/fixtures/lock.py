@@ -2,12 +2,17 @@ import logging
 import time
 from abc import ABC
 from datetime import datetime
-from typing import Any, Callable, Optional, Tuple, override
+from typing import Any, Callable, Optional, Tuple
 
 import pytest
 
 from pytest_lock.fixtures.base import FixtureBase
 from pytest_lock.models.cache.lock import Lock
+
+try:
+    from typing import override
+except ImportError:
+    from typing_extensions import override
 
 
 def is_valid_date(date_string: str, date_format: str = "%Y/%m/%d") -> bool:

@@ -1,9 +1,13 @@
 import json
 from pathlib import Path
-from typing import override
 
 from pytest_lock.models.cache.file import FileCache
 from pytest_lock.parser_file.base import ParserFile
+
+try:
+    from typing import override
+except ImportError:
+    from typing_extensions import override
 
 
 class ParserFileJson(ParserFile):
