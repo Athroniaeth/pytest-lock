@@ -32,7 +32,7 @@ jobs:
         run: pip install poetry
 
       - name: Install Dependencies
-        run: poetry install
+        run: poetry install --with dev
 
       - name: Run Mypy (Static Type Checking)
         run: poetry run mypy src
@@ -50,7 +50,7 @@ jobs:
         run: pip install poetry
 
       - name: Install Dependencies
-        run: poetry install
+        run: poetry install --with dev
 
       - name: Run Ruff (Linting)
         run: poetry run ruff check
@@ -68,7 +68,7 @@ jobs:
         run: pip install poetry
 
       - name: Install Dependencies
-        run: poetry install
+        run: poetry install --with dev
 
       - name: Run Bandit (Security Analysis)
         run: poetry run bandit -c pyproject.toml -r src
@@ -86,7 +86,7 @@ jobs:
         run: pip install poetry
 
       - name: Install Dependencies
-        run: poetry install
+        run: poetry install --with dev
 
       - name: Run Pytest (Tests and Coverage)
         run: poetry run pytest
@@ -105,7 +105,7 @@ jobs:
         run: pip install poetry
 
       - name: Install Dependencies
-        run: poetry install
+        run: poetry install --with dev
 
       - name: Run Pytest (Tests)
         run: poetry run coverage run --source=src -m pytest

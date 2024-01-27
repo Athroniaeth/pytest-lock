@@ -1,14 +1,19 @@
 import logging
+import sys
 import time
 from abc import ABC
 from datetime import datetime
 from typing import Any, Callable, Optional, Tuple
 
 import pytest
-from typing_extensions import override
 
 from pytest_lock.fixtures.base import FixtureBase
 from pytest_lock.models.cache.lock import Lock
+
+if sys.version_info >= (3, 12):
+    from typing import override
+else:
+    from typing_extensions import override
 
 
 def is_valid_date(date_string: str, date_format: str = "%Y/%m/%d") -> bool:
