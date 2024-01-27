@@ -1,4 +1,5 @@
 import logging
+import sys
 import time
 from abc import ABC
 from datetime import datetime
@@ -9,9 +10,9 @@ import pytest
 from pytest_lock.fixtures.base import FixtureBase
 from pytest_lock.models.cache.lock import Lock
 
-try:
+if sys.version_info >= (3, 12):
     from typing import override
-except ImportError:
+else:
     from typing_extensions import override
 
 

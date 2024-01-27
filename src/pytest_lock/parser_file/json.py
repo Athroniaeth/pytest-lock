@@ -1,12 +1,13 @@
 import json
+import sys
 from pathlib import Path
 
 from pytest_lock.models.cache.file import FileCache
 from pytest_lock.parser_file.base import ParserFile
 
-try:
+if sys.version_info >= (3, 12):
     from typing import override
-except ImportError:
+else:
     from typing_extensions import override
 
 

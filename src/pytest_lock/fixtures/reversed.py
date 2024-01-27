@@ -1,12 +1,13 @@
+import sys
 import warnings
 from abc import ABC
 from typing import Any, Callable, Tuple
 
 from pytest_lock.fixtures.base import FixtureBase
 
-try:
+if sys.version_info >= (3, 12):
     from typing import override
-except ImportError:
+else:
     from typing_extensions import override
 
 
