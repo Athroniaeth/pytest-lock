@@ -29,10 +29,10 @@ jobs:
         run: pip install poetry
 
       - name: Install Dependencies
-        run: poetry install
+        run: poetry install --with dev
 
       - name: Run Ruff (Formatting)
-        run: poetry run ruff format ./src ./tests
+        run: poetry run ruff format
 
       - name: Run Ruff (Linting)
         run: poetry run ruff check
