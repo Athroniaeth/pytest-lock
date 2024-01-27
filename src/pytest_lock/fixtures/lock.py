@@ -2,10 +2,9 @@ import logging
 import time
 from abc import ABC
 from datetime import datetime
-from typing import Any, Callable, Optional, Tuple
+from typing import Any, Callable, Optional, Tuple, override
 
 import pytest
-from typing import override
 
 from pytest_lock.fixtures.base import FixtureBase
 from pytest_lock.models.cache.lock import Lock

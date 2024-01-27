@@ -1,8 +1,6 @@
 import warnings
 from abc import ABC
-from typing import Any, Callable, Tuple
-
-from typing import override
+from typing import Any, Callable, Tuple, override
 
 from pytest_lock.fixtures.base import FixtureBase
 

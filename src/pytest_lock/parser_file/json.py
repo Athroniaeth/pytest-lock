@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-
 from typing import override
 
 from pytest_lock.models.cache.file import FileCache
