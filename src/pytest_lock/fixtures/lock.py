@@ -5,7 +5,7 @@ from datetime import datetime
 from typing import Any, Callable, Optional, Tuple
 
 import pytest
-from typing_extensions import override
+from typing import override
 
 from pytest_lock.fixtures.base import FixtureBase
 from pytest_lock.models.cache.lock import Lock

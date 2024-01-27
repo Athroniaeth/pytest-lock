@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 
-from typing_extensions import override
+from typing import override
 
 from pytest_lock.models.cache.file import FileCache
 from pytest_lock.parser_file.base import ParserFile
