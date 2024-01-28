@@ -94,11 +94,11 @@ def _lock(
         FixtureLock: Lock fixture.
 
     """
-    root_path = pytestconfig.rootpath
     # Use default values if not given
+    root_path = pytestconfig.rootpath
+    extension = extension or EXTENSION
     tests_path = tests_path or root_path / TESTS_PATH
     cache_path = cache_path or root_path / CACHE_LOCK_PATH
-    extension = extension or EXTENSION
 
     # Create configuration for lock fixture
     config = LockConfig.from_pytest_run(
