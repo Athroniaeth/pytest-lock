@@ -2,7 +2,23 @@ from typing import List
 
 import pytest
 from _pytest.pytester import Pytester
+
+from pytest_lock.models.cli_argument import ArgumentCLI
 from pytest_lock.models.exceptions import LockCLIException
+
+
+@pytest.mark.parametrize(
+    ("argument_cli", "argument_cli_old"),
+    [
+        (ArgumentCLI.LOCK, "--lock"),
+        (ArgumentCLI.LOCK_DATE, "--lock-date"),
+        (ArgumentCLI.ONLY_SKIP, "--only-skip"),
+        (ArgumentCLI.SIMULATE, "--simulate"),
+    ],
+)
+def test_same_arguments(argument_cli: str, argument_cli_old: str):
+    """ Check that ArgumentCLI still has the same commands as previously determined. """
+    assert argument_cli == argument_cli_old
 
 
 @pytest.mark.parametrize(
