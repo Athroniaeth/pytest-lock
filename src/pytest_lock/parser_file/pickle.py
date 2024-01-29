@@ -52,3 +52,12 @@ class ParserFilePickle(ParserFile):
             path.touch()
 
         return pickle.dump(file_cache, open(f'{path}', 'wb'), protocol=pickle.HIGHEST_PROTOCOL)
+
+    @override
+    def transform_data(self, lock: Lock):
+        # https://stackoverflow.com/questions/49715881/how-to-pickle-inherited-exceptions
+
+        # Pickle can't serialize Exception objects, need to use __reduce__ method
+        if isinstance(lock.result, Exception) or issubclass(lock.result.__class__, Exception):
+            lock.result = lock.result.__reduce__()
+        return lock
