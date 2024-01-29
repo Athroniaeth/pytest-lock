@@ -24,9 +24,9 @@ def test_same_arguments(argument_cli: str, argument_cli_old: str):
 @pytest.mark.parametrize(
     "arguments",
     [
-        ["--simulate"],  # Can't simulate without --lock
-        ["--lock-date", "2000/01/01"],  # Can't lock-date without --lock
-        ["--only-skip"],  # Can't 'only-skip' without --lock
+        [ArgumentCLI.SIMULATE],  # Can't simulate without --lock
+        [ArgumentCLI.ONLY_SKIP],  # Can't 'only-skip' without --lock
+        [ArgumentCLI.LOCK_DATE, "2000/01/01"],  # Can't lock-date without --lock
     ],
 )
 def test_bad_arguments(pytester: Pytester, arguments: List[str]):
@@ -37,17 +37,17 @@ def test_bad_arguments(pytester: Pytester, arguments: List[str]):
     result.assert_outcomes(errors=1)
 
     cli_arguments_str = ", ".join([f"'{arg}'" for arg in arguments])
-    exception = LockCLIException(f"Can't activate {cli_arguments_str} mode without '--lock'")
+    exception = LockCLIException(f"Can't activate {cli_arguments_str} mode without '{ArgumentCLI.LOCK}'")
     assert f"{exception}" in result.stdout.str()
 
 
 @pytest.mark.parametrize(
     "arguments",
     [
-        ["--lock"],
-        ["--lock", "--simulate"],
-        ["--lock", "--lock-date", "2000/01/01"],
-        ["--lock", "--only-skip"],
+        [ArgumentCLI.LOCK],
+        [ArgumentCLI.LOCK, ArgumentCLI.SIMULATE],
+        [ArgumentCLI.LOCK, ArgumentCLI.ONLY_SKIP],
+        [ArgumentCLI.LOCK, ArgumentCLI.LOCK_DATE, "2000/01/01"],
     ],
 )
 def test_good_arguments(pytester: Pytester, arguments: List[str]):
