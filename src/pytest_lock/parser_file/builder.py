@@ -2,6 +2,7 @@ from typing import Dict
 
 from pytest_lock.parser_file.base import ParserFile
 from pytest_lock.parser_file.json import ParserFileJson
+from pytest_lock.parser_file.pickle import ParserFilePickle
 
 
 class ParserFileBuilder:
@@ -17,6 +18,7 @@ class ParserFileBuilder:
     def __init__(self):
         self.mapping = {
             ".json": ParserFileJson(),
+            ".pickle": ParserFilePickle()
         }
 
     def build(self, extension: str = ".json") -> ParserFile:
