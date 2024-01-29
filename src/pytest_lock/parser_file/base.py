@@ -2,6 +2,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 from pytest_lock.models.cache.file import FileCache
+from pytest_lock.models.cache.lock import Lock
 
 
 class ParserFile(ABC):
@@ -36,3 +37,19 @@ class ParserFile(ABC):
             path: Path of file to write content
             file_cache: Content of file with format FileCache
         """
+
+    def transform_data(self, lock: Lock):
+        """
+        Transform data before compare to old lock (cache file)
+
+        Examples:
+            Json write and read string, so if you want to
+            compare a class, you need to transform it to string
+
+        Args:
+            lock: Lock to transform
+
+        Returns:
+            Lock transformed
+        """
+        return lock
