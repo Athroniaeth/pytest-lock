@@ -13,10 +13,12 @@ that the result of the test is always the same. If the result of the test is dif
 
 ### Reverse tests
 
-This idea came from the fact that while watching the comments of a YouTube video (which I no longer remember) that it
+this idea has been cancelled because it does not correspond to the purpose of pytest-lock and will be destined, perhaps, for another librairy.
+
+~~This idea came from the fact that while watching the comments of a YouTube video (which I no longer remember) that it
 was a shame not to be able to do "reverse" tests. The idea is that once we have done our unit tests, if they work, we
 can test with "random" or "unexpected" variables, if the test fails it means everything is fine. The idea here is to
-take this up by offering “reverse” tests based on the lock tests.
+take this up by offering “reverse” tests based on the lock tests.~~
 
 ## Architecture
 
@@ -25,69 +27,74 @@ additions (such as configurations, unforeseen functionality) through the use of 
 
 ## Tasks
 
-### branch: *"feature/lock-fixture"*
+---
 
-* **Status:** _Not started_
-* **Note:** Branch containing the base of the pytest fixture 'lock', it must be able to easily integrate new functions, CLI arguments, etc…
-
-- [X] Add fixtures `lock`
-
-### branch: *"feature/fixtures-lock-method"*
+### branch: *"feature/fixture-lock-pickle"*
 
 * **Status:** _Finish_
-* **Note:** This branch requires that the branch "feature/lock-fixture" be finalized.
-
-- [X] Add fixtures method `lock.lock` to lock the result of a test to a cache file
-    - [X] If test use `lock.lock` and result was not locked, exception is thrown
-    - [X] If test use `lock.lock` result is in the cache file and is the same as the result of the test, test is valid
-    - [X] If test use `lock.lock` result is in the cache file and is not the same as the result of the test, test is
-      invalid (failed)
-    - [X] If test use `lock.lock` and `--lock` in cli argument, then start test and lock the result in cache file (Any
-      result with __str__ method and Exception are supported)
-    - [X] If test use `lock.lock` and `--simulate` in cli argument, then simulate the result of the test, not write to the cache file.
-    - [X] If test use `--simulate` argument and not `--lock` argument, then it's invalid, throw exception
-
-### branch: *"feature/fixture-lock-date-support"*
-
-* **Status:** _Finished_
 * **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
 
-- [X] Add support for `pytest --lock --lock-date 13/12/2023`, if test has `lock` fixture, then lock the result of the
-  test to a cache file with the date of the lock, if date was expired, then the test is skipped
+- [X] Add `pickle` extension for `lock.lock` to support more types of data
 
-### branch: *"feature/fixture-lock-improve-skip"*
+---
 
-* **Status:** _Not Started_
+
+### branch: *"feature/fixture-update-lock-target"*
+
+* **Status:** _Start_
 * **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
 
-- [ ] `lock.lock` with `--lock` must pass tests that don't use the lock fixture and return tests that were **skipped** to **passed**. This avoids the know issue of not being able to lock several tests with `lock.lock` in a single test function at the same time, as **skip** acts like **failed** and prevents the test from being executed.
+- [ ] Cli argument `--lock` target only test with `lock` fixture
 
-### branch: *"feature/fixture-reversed-method"*
+---
 
-* **Status:** _Not started_
-* **Note:** This branch requires that the branch "feature/lock-fixture" be finalized.
+### branch: *"feature/fixture-lock-clean"*
 
-- [ ] Add fixtures method `lock.reversal` to reverse test with random or unexpected variables
-    - [ ] If test use `lock.reversed` and `--lock` argument, the argument is useless, skip.
-    - [ ] If test has `lock.reversed` and `--reversed` argument
-        - [ ] If the result was not locked the plugin will skip the test
-        - [ ] If the result was locked the plugin will check the type of the arguments of lock, if the test have
-          list[int] as argument, then the plugin will check if the test failed with list[str], str, int, float, etc...
-          and if it's the case, the test is valid
-    - [ ] Add arguments for `lock.reversed` to specify type to check, additionally, replace, or replace_joined
-      Note :
+* **Status:** _Start_
+* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
+
+- [ ] If test use `--lock` and `--clean` argument, then clean all unused cache files
+- [ ] If test use `--lock` and `--clean` argument and `--only-skip` argument, then do anything, it's certainly a mistake (why clean only test with existing lock ?)
+- [ ] If test use `--lock` and `--clean` argument and `--simulate` argument, list all unused cache files who will be removed without remove them.
+- [ ] If test use `--lock` and `--clean` argument and `--lock-date` argument, thrown exception (can't lock a remove cache file)
+
+---
+
+### branch: *"feature/fixture-lock-clean-all"*
+
+* **Status:** _Start_
+* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
+
+- [ ] If test use `--lock` and `--clean-all` argument, then clean all cache files
+- [ ] If test use `--lock` and `--clean-all` argument and `--only-skip` argument, then do anything, it's certainly a mistake (why clean only test with existing lock ?)
+- [ ] If test use `--lock` and `--clean-all` argument and `--simulate` argument, throw exception (why simulate clean ? clean remove all cache files)
+- [ ] If test use `--lock` and `--clean-all` argument and `--lock-date` argument, thrown exception (can't lock a remove cache file)
+
+---
 
 ## Examples to test
 
 ### Lock tests examples
 
-```py 
-from typing import List
+```python
 from pytest_lock import FixtureLock
 
 
 def test_something(lock: FixtureLock):
-    lock.lock(sum, ([1, 2, 3],))  # use the lock function to lock the result of the test
+    args = [1, 2, 3]
+    lock.lock(sum, (args,))  # use the lock function to lock the result of the test
+    ...
+``` 
+
+```python
+from pytest_lock import FixtureLock
+
+
+def test_something(lock: FixtureLock):
+    args = [1, 2, 3]
+    lock.change_parser('.json')
+    lock.change_parser('.pickle')
+    lock.lock(sum, (args,))  # use the lock function to lock the result of the test
     ...
 ``` 
 
