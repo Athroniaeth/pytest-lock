@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 
 from pytest_lock.models.cache.file import FileCache
+from pytest_lock.models.cache.lock import Lock
 from pytest_lock.parser_file.base import ParserFile
 
 if sys.version_info >= (3, 12):
@@ -41,3 +42,8 @@ class ParserFileJson(ParserFile):
             content,
             encoding=self.encoding,
         )
+
+    @override
+    def transform_data(self, lock: Lock):
+        lock.result = f"{lock.result}"
+        return lock
