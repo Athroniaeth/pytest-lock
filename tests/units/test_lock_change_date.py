@@ -2,6 +2,8 @@ import datetime
 
 from _pytest.pytester import Pytester
 
+from pytest_lock.models.cli_argument import ArgumentCLI
+
 
 def test_lock_change_date_today(pytester: Pytester) -> None:
     """Test the creation of a cache."""
@@ -11,7 +13,7 @@ def test_lock_change_date_today(pytester: Pytester) -> None:
     pytester.copy_example("conftest.py")
     pytester.copy_example("scenarios/test_fixture_lock.py")
 
-    result = pytester.runpytest("--lock", "--lock-date", f"{today}")
+    result = pytester.runpytest(ArgumentCLI.LOCK, ArgumentCLI.LOCK_DATE, f"{today}")
     result.assert_outcomes(skipped=1)
 
     result = pytester.runpytest()
@@ -26,7 +28,7 @@ def test_lock_change_date_yesterday(pytester: Pytester) -> None:
     pytester.copy_example("conftest.py")
     pytester.copy_example("scenarios/test_fixture_lock.py")
 
-    result = pytester.runpytest(*["--lock", "--lock-date", f"{yesterday}"])
+    result = pytester.runpytest(ArgumentCLI.LOCK, ArgumentCLI.LOCK_DATE, f"{yesterday}")
     result.assert_outcomes(skipped=1)
 
     result = pytester.runpytest()
@@ -41,7 +43,7 @@ def test_lock_change_date_tomorrow(pytester: Pytester) -> None:
     pytester.copy_example("conftest.py")
     pytester.copy_example("scenarios/test_fixture_lock.py")
 
-    result = pytester.runpytest(*["--lock", "--lock-date", f"{tomorrow}"])
+    result = pytester.runpytest(ArgumentCLI.LOCK, ArgumentCLI.LOCK_DATE, f"{tomorrow}")
     result.assert_outcomes(skipped=1)
 
     result = pytester.runpytest()

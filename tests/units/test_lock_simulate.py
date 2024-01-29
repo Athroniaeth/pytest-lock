@@ -1,12 +1,14 @@
 from _pytest.pytester import Pytester
 
+from pytest_lock.models.cli_argument import ArgumentCLI
+
 
 def test_lock_change_date_today(pytester: Pytester) -> None:
     """Test the creation of a cache."""
     pytester.copy_example("conftest.py")
     pytester.copy_example("scenarios/test_fixture_lock.py")
 
-    result = pytester.runpytest("--lock", "--simulate")
+    result = pytester.runpytest(ArgumentCLI.LOCK, ArgumentCLI.SIMULATE)
 
     result.assert_outcomes(skipped=1)
 
