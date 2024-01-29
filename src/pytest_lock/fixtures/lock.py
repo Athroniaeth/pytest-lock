@@ -9,6 +9,7 @@ import pytest
 
 from pytest_lock.fixtures.base import FixtureBase
 from pytest_lock.models.cache.lock import Lock
+from pytest_lock.parser_file.builder import ParserFileBuilder
 
 if sys.version_info >= (3, 12):
     from typing import override
@@ -49,6 +50,9 @@ class MixinLock(FixtureBase, ABC):
         new_lock = Lock.from_function_and_arguments(function, arguments)
         old_lock = self.cache_system.read_lock(new_lock)
 
+        # Use data transform if parser file need (json need to have string to compare)
+        self.cache_system.parser.transform_data(new_lock)
+
         if self.config.is_lock:
             self._update_lock(new_lock, old_lock)
         else:
@@ -84,9 +88,9 @@ class MixinLock(FixtureBase, ABC):
         if not any(conditions):
             if not self.config.is_simulate:
                 self.cache_system.write_lock(new_lock)
-                logging.info(f"Write in the cache file with result {new_lock.result}")
+                logging.info(f"Write in the cache file with result '{new_lock.result}'")
             else:
-                logging.info(f"[Simulate] Write in the cache file with result {new_lock.result}")
+                logging.info(f"[Simulate] Write in the cache file with result '{new_lock.result}'")
 
             pytest.skip(f"Write in the cache file with result {new_lock.result}")
 
@@ -104,8 +108,10 @@ class MixinLock(FixtureBase, ABC):
             # Add to history allow targeting with '--only-skip' for next '--lock' command
             pytest.fail("No lock found, please run the lock of this test")
 
-        assert old_lock.result == new_lock.result, f"The test result does not match the last lock ({old_lock.result} != {new_lock.result})"
-        assert old_lock.result_type == new_lock.result_type, f"The test type does not match the last lock ({old_lock.result} != {new_lock.result})"
+        assert old_lock.result == new_lock.result, (f"The test result does not match the last lock \n"
+                                                    f"('{old_lock.result}' != '{new_lock.result}')")
+        assert old_lock.result_type == new_lock.result_type, (f"The test type does not match the last lock \n"
+                                                              f"('{old_lock.result_type}' != '{new_lock.result_type}')")
 
         # If date was indicate by 'lock-date', check if always valid
         if old_lock.expiration_date is not None:
@@ -116,3 +122,7 @@ class MixinLock(FixtureBase, ABC):
 
             logging.info(f"Lock found, result {old_lock.result}, expiration date on '{old_date}'")
             assert old_date >= today, f"The lock is invalid due to the expiration date, please restart its lock ({old_date} > {today})"
+
+    def change_parser(self, extension: str):
+        builder = ParserFileBuilder()
+        self.cache_system.parser = builder.build(extension)
