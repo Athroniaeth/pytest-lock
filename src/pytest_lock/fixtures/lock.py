@@ -108,10 +108,10 @@ class MixinLock(FixtureBase, ABC):
             # Add to history allow targeting with '--only-skip' for next '--lock' command
             pytest.fail("No lock found, please run the lock of this test")
 
-        assert old_lock.result == new_lock.result, (f"The test result does not match the last lock \n"
-                                                    f"('{old_lock.result}' != '{new_lock.result}')")
-        assert old_lock.result_type == new_lock.result_type, (f"The test type does not match the last lock \n"
-                                                              f"('{old_lock.result_type}' != '{new_lock.result_type}')")
+        assert old_lock.result == new_lock.result, f"The test result does not match the last lock \n" f"('{old_lock.result}' != '{new_lock.result}')"
+        assert old_lock.result_type == new_lock.result_type, (
+            f"The test type does not match the last lock \n" f"('{old_lock.result_type}' != '{new_lock.result_type}')"
+        )
 
         # If date was indicate by 'lock-date', check if always valid
         if old_lock.expiration_date is not None:

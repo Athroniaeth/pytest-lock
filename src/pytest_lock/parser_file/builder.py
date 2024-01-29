@@ -16,10 +16,7 @@ class ParserFileBuilder:
     mapping: Dict[str, ParserFile]
 
     def __init__(self):
-        self.mapping = {
-            ".json": ParserFileJson(),
-            ".pickle": ParserFilePickle()
-        }
+        self.mapping = {".json": ParserFileJson(), ".pickle": ParserFilePickle()}
 
     def build(self, extension: str = ".json") -> ParserFile:
         """

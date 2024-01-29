@@ -42,13 +42,13 @@ class LockConfig:
 
     @classmethod
     def from_pytest_run(
-            cls,
-            pytestconfig: Config,
-            request: pytest.FixtureRequest,
-            tests_path: Path,
-            cache_path: Path,
-            extension: str,
-            date_format: str = "%Y/%m/%d",
+        cls,
+        pytestconfig: Config,
+        request: pytest.FixtureRequest,
+        tests_path: Path,
+        cache_path: Path,
+        extension: str,
+        date_format: str = "%Y/%m/%d",
     ) -> "LockConfig":
         """
         Create a LockConfig from pytest run
@@ -79,16 +79,13 @@ class LockConfig:
                 raise LockCLIException("Can't activate '--only-skip' mode without '--lock'")
 
         return cls(
-
             tests_path=tests_path,
             cache_path=cache_path,
             file_path=request.path,
-
             is_lock=is_lock,
             is_simulate=is_simulate,
             is_lock_date=is_lock_date,
             only_skip=only_skip,
-
             extension=extension,
             date_format=date_format,
         )

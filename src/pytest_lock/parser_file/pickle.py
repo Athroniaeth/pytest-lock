@@ -37,7 +37,7 @@ class ParserFilePickle(ParserFile):
         if not path.exists():
             return FileCache(functions=[])
 
-        content = pickle.load(open(f'{path}', 'rb'), encoding=self.encoding)
+        content = pickle.load(open(f"{path}", "rb"), encoding=self.encoding)
 
         if not isinstance(content, FileCache):
             raise TypeError(f"FileCache expected, got {type(content)}")
@@ -50,7 +50,7 @@ class ParserFilePickle(ParserFile):
             path.parent.mkdir(parents=True, exist_ok=True)
             path.touch()
 
-        return pickle.dump(file_cache, open(f'{path}', 'wb'), protocol=pickle.HIGHEST_PROTOCOL)
+        return pickle.dump(file_cache, open(f"{path}", "wb"), protocol=pickle.HIGHEST_PROTOCOL)
 
     @override
     def transform_data(self, lock: Lock):
