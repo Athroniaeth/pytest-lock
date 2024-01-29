@@ -123,6 +123,18 @@ class MixinLock(FixtureBase, ABC):
             logging.info(f"Lock found, result {old_lock.result}, expiration date on '{old_date}'")
             assert old_date >= today, f"The lock is invalid due to the expiration date, please restart its lock ({old_date} > {today})"
 
-    def change_parser(self, extension: str):
+    def change_parser(self, extension: str) -> None:
+        """
+        Change the extension of parser file.
+
+        Notes:
+            This function allows you to change the test lock backup
+            extension (default is json, which only supports __str__ method).
+
+        Args:
+            extension: The new extension of parser file
+        """
+
         builder = ParserFileBuilder()
-        self.cache_system.parser = builder.build(extension)
+        self.cache_system.parser = builder.build(extension)  # without this, cache will open file with old parser
+        self.config.extension = extension  # without this, cache will open file with old extension

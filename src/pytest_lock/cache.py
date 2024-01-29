@@ -3,7 +3,7 @@ from typing import Optional
 
 from pytest_lock.config import LockConfig
 from pytest_lock.models.cache.lock import Lock
-from pytest_lock.parser_file.base import ParserFile
+from pytest_lock.parser_file.builder import ParserFileBuilder
 
 
 class CacheLock:
@@ -12,16 +12,15 @@ class CacheLock:
 
     Args:
         config: Config of pytest-lock
-        parser: Parser of file to use
 
     Attributes:
         parser: Parser of file to use
-        cache_path: Path of cache file
     """
 
-    def __init__(self, config: LockConfig, parser: ParserFile):
-        self.parser = parser
-        self.cache_path = config.cache_path
+    def __init__(self, config: LockConfig):
+        parser_file_builder = ParserFileBuilder()
+        self.parser = parser_file_builder.build(config.extension)
+        self.config = config
 
     def write_lock(self, lock: Lock) -> None:
         """
@@ -30,7 +29,8 @@ class CacheLock:
         Args:
             lock: Lock to write in cache file
         """
-        file_cache = self.parser.read_file(self.cache_path)
+        file_cache_path = self.config.get_file_cache()
+        file_cache = self.parser.read_file(file_cache_path)
 
         for index, other_lock in enumerate(file_cache.functions):
             if other_lock == lock:
@@ -42,16 +42,17 @@ class CacheLock:
             file_cache.functions.append(lock)
 
         # write file_cache in path
-        self.parser.write_file(self.cache_path, file_cache)
+        self.parser.write_file(file_cache_path, file_cache)
 
     def read_lock(self, lock: Lock) -> Optional[Lock]:
         """
         Read a lock in cache file with same signature
         """
-        if not self.cache_path.exists():
+        file_cache_path = self.config.get_file_cache()
+        if not file_cache_path.exists():
             return None
 
-        file_cache = self.parser.read_file(self.cache_path)
+        file_cache = self.parser.read_file(file_cache_path)
 
         for index, other_lock in enumerate(file_cache.functions):
             if other_lock == lock:

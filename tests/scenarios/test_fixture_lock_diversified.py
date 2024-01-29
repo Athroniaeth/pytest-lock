@@ -6,7 +6,7 @@ import pytest
 from pytest_lock import FixtureLock
 from pytest_lock.parser_file.builder import ParserFileBuilder
 
-list_valid_extensions = ['.pickle']  # ParserFileBuilder().mapping.keys()
+list_valid_extensions = ParserFileBuilder().mapping.keys()
 
 
 @pytest.mark.parametrize("extension", list_valid_extensions)

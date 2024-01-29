@@ -24,7 +24,7 @@ class Lock:
         expiration_date: Expiration date of lock
     """
 
-    result: str
+    result: SupportsStr  # Can be a tuple for Exception for Pickle extension
     function: str
     arguments: str
 

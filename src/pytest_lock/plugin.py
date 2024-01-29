@@ -16,7 +16,6 @@ from pytest import FixtureRequest
 from pytest_lock.cache import CacheLock
 from pytest_lock.config import ArgumentCLI, LockConfig
 from pytest_lock.fixture import FixtureLock
-from pytest_lock.parser_file.builder import ParserFileBuilder
 
 CACHE_LOCK_PATH = ".pytest_lock"
 TESTS_PATH = "tests"
@@ -110,9 +109,7 @@ def _lock(
     )
 
     # Create cache system
-    parser_file_builder = ParserFileBuilder()
-    parser_file = parser_file_builder.build(EXTENSION)
-    cache_system = CacheLock(config, parser_file)
+    cache_system = CacheLock(config)
 
     # Create lock fixture with configuration and cache system
     lock_fixture = FixtureLock(config, cache_system)
