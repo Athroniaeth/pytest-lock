@@ -1,4 +1,4 @@
-import pickle
+import pickle  # nosec
 import sys
 from pathlib import Path
 
@@ -36,8 +36,8 @@ class ParserFilePickle(ParserFile):
     def read_file(self, path: Path) -> FileCache:
         if not path.exists():
             return FileCache(functions=[])
-
-        content = pickle.load(open(f"{path}", "rb"), encoding=self.encoding)
+        # disable bandit error B301
+        content = pickle.load(open(f"{path}", "rb"), encoding=self.encoding)  # nosec
 
         if not isinstance(content, FileCache):
             # Todo : Add test for wrong type of content file
