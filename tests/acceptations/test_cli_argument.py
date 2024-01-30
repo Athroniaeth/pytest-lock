@@ -14,6 +14,8 @@ from pytest_lock.models.exceptions import LockCLIException
         (ArgumentCLI.LOCK_DATE, "--lock-date"),
         (ArgumentCLI.ONLY_SKIP, "--only-skip"),
         (ArgumentCLI.SIMULATE, "--simulate"),
+        (ArgumentCLI.CLEAN, "--clean"),
+        (ArgumentCLI.CLEAN_ALL, "--clean-all"),
     ],
 )
 def test_same_arguments(argument_cli: str, argument_cli_old: str):
