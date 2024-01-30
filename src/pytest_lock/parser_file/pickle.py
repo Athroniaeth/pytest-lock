@@ -40,6 +40,7 @@ class ParserFilePickle(ParserFile):
         content = pickle.load(open(f"{path}", "rb"), encoding=self.encoding)
 
         if not isinstance(content, FileCache):
+            # Todo : Add test for wrong type of content file
             raise TypeError(f"FileCache expected, got {type(content)}")
 
         return content

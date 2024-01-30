@@ -34,6 +34,7 @@ class CacheLock:
 
         for index, other_lock in enumerate(file_cache.functions):
             if other_lock == lock:
+                # Todo : Add test for double lock of same function
                 logging.info(f"Lock found, modified result {other_lock.result} with {lock.result}")
                 file_cache.functions[index] = lock
                 break

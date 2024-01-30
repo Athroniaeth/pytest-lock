@@ -77,6 +77,7 @@ class MixinLock(FixtureBase, ABC):
         if self.config.is_lock_date:
             # If lock_date don't respect format, raise error
             if not is_valid_date(self.config.is_lock_date):
+                # Todo : Add test for invalid date
                 raise ValueError(f"Lock date '{self.config.is_lock_date}' don't respect format '{self.config.date_format}'")
             new_lock.expiration_date = self.config.is_lock_date
 
