@@ -14,7 +14,8 @@ from pytest_lock import FixtureLock
 
 
 def test_lock_sum(lock: FixtureLock):
-    lock.lock(sum, ([1, 2, 3],))
+    args = [1, 2, 3]
+    lock.lock(sum, (args,))
 ```
 
 ### Locking Tests

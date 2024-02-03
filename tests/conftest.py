@@ -25,8 +25,11 @@ def lock_test(pytestconfig: pytest.Config, request: pytest.FixtureRequest) -> Fi
     """
     # Use pytestconfig and request of test function
     env_tests_path = Path(__name__).parent.absolute()
-    env_cache_lock_path = env_tests_path / ".pytest_lock"
-    extension = ".json"
+
+    # Use default values of plugin
+    from pytest_lock.plugin import CACHE_LOCK_PATH, EXTENSION
+    env_cache_lock_path = env_tests_path / CACHE_LOCK_PATH
+    extension = EXTENSION
 
     lock_fixture = _lock(  # noqa: F841
         pytestconfig=pytestconfig,

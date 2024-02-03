@@ -8,7 +8,7 @@ list_valid_extensions = ParserFileBuilder().mapping.keys()
 def test_parser_file_builder(extension: str):
     """Test the parser file builder."""
     builder = ParserFileBuilder()
-    builder.build(".json")
+    builder.build(extension)
 
 
 def test_parser_file_builder_err():
