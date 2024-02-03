@@ -44,13 +44,13 @@ class LockConfig:
 
     @classmethod
     def from_pytest_run(
-        cls,
-        pytestconfig: Config,
-        request: pytest.FixtureRequest,
-        tests_path: Path,
-        cache_path: Path,
-        extension: str,
-        date_format: str = "%Y/%m/%d",
+            cls,
+            pytestconfig: Config,
+            request: pytest.FixtureRequest,
+            tests_path: Path,
+            cache_path: Path,
+            extension: str,
+            date_format: str = "%Y/%m/%d",
     ) -> "LockConfig":
         """
         Create a LockConfig from pytest run
@@ -73,22 +73,6 @@ class LockConfig:
 
         ask_clean = pytestconfig.getoption(ArgumentCLI.CLEAN)
         ask_only_skip = pytestconfig.getoption(ArgumentCLI.ONLY_SKIP)
-
-        if not is_lock:
-            if is_simulate:
-                raise LockCLIException(f"Can't activate '{ArgumentCLI.SIMULATE}' mode without '{ArgumentCLI.LOCK}'")
-            if is_lock_date:
-                raise LockCLIException(f"Can't activate '{ArgumentCLI.LOCK_DATE}', '{is_lock_date}' mode without '{ArgumentCLI.LOCK}'")
-            if ask_only_skip:
-                raise LockCLIException(f"Can't activate '{ArgumentCLI.ONLY_SKIP}' mode without '{ArgumentCLI.LOCK}'")
-            if ask_clean:
-                raise LockCLIException(f"Can't activate '{ArgumentCLI.CLEAN}' mode without '{ArgumentCLI.LOCK}'")
-
-        if ask_clean:
-            if is_lock_date:
-                raise LockCLIException(f"Can't activate '{ArgumentCLI.LOCK_DATE}', '{is_lock_date}' mode with '{ArgumentCLI.CLEAN}'")
-            if ask_only_skip:
-                raise LockCLIException(f"Can't activate '{ArgumentCLI.ONLY_SKIP}' mode with '{ArgumentCLI.CLEAN}'")
 
         return cls(
             tests_path=tests_path,

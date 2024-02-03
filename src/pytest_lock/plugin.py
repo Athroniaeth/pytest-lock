@@ -18,6 +18,7 @@ from pytest_lock.cache import CacheLock
 from pytest_lock.config import ArgumentCLI, LockConfig
 from pytest_lock.fixture import FixtureLock
 from pytest_lock.hooks.lock import skip_test_without_lock_fixture
+from pytest_lock.models.exceptions import LockCLIException
 
 CACHE_LOCK_PATH = ".pytest_lock"
 TESTS_PATH = "tests"
@@ -33,13 +34,43 @@ def pytest_addoption(parser: Config):
     parser.addoption(ArgumentCLI.CLEAN, action="store_true", help="Clean lock file")  # type: ignore
 
 
+def check_cli_arguments(pytestconfig: Config) -> None:
+    """
+    Check if have error in cli arguments.
+
+    Args:
+        pytestconfig (Config): Pytest configuration.
+    """
+    is_lock = pytestconfig.getoption(ArgumentCLI.LOCK)
+    is_simulate = pytestconfig.getoption(ArgumentCLI.SIMULATE)
+    is_lock_date = pytestconfig.getoption(ArgumentCLI.LOCK_DATE)
+    ask_only_skip = pytestconfig.getoption(ArgumentCLI.ONLY_SKIP)
+    ask_clean = pytestconfig.getoption(ArgumentCLI.CLEAN)
+
+    if not is_lock:
+        if is_simulate:
+            raise LockCLIException(f"Can't activate '{ArgumentCLI.SIMULATE}' mode without '{ArgumentCLI.LOCK}'")
+        if is_lock_date:
+            raise LockCLIException(f"Can't activate '{ArgumentCLI.LOCK_DATE}', '{is_lock_date}' mode without '{ArgumentCLI.LOCK}'")
+        if ask_only_skip:
+            raise LockCLIException(f"Can't activate '{ArgumentCLI.ONLY_SKIP}' mode without '{ArgumentCLI.LOCK}'")
+        if ask_clean:
+            raise LockCLIException(f"Can't activate '{ArgumentCLI.CLEAN}' mode without '{ArgumentCLI.LOCK}'")
+
+    if ask_clean:
+        if is_lock_date:
+            raise LockCLIException(f"Can't activate '{ArgumentCLI.LOCK_DATE}', '{is_lock_date}' mode with '{ArgumentCLI.CLEAN}'")
+        if ask_only_skip:
+            raise LockCLIException(f"Can't activate '{ArgumentCLI.ONLY_SKIP}' mode with '{ArgumentCLI.CLEAN}'")
+
+
 @pytest.fixture(scope="function")
 def lock(
-        pytestconfig: Config,
-        request: FixtureRequest,
-        tests_path: Optional[Path] = None,
-        cache_path: Optional[Path] = None,
-        extension: Optional[str] = None,
+    pytestconfig: Config,
+    request: FixtureRequest,
+    tests_path: Optional[Path] = None,
+    cache_path: Optional[Path] = None,
+    extension: Optional[str] = None,
 ) -> FixtureLock:
     """
     Fixture to give access to lock feature.
@@ -69,11 +100,11 @@ def lock(
 
 
 def _lock(
-        pytestconfig: Config,
-        request: FixtureRequest,
-        tests_path: Optional[Path] = None,
-        cache_path: Optional[Path] = None,
-        extension: Optional[str] = None,
+    pytestconfig: Config,
+    request: FixtureRequest,
+    tests_path: Optional[Path] = None,
+    cache_path: Optional[Path] = None,
+    extension: Optional[str] = None,
 ) -> FixtureLock:
     """
     Fixture function accessible without use like pytest way.
@@ -96,6 +127,9 @@ def _lock(
         FixtureLock: Lock fixture.
 
     """
+    # Check if have error in cli arguments
+    check_cli_arguments(pytestconfig)
+
     # Use default values if not given
     root_path = pytestconfig.rootpath
     extension = extension or EXTENSION
@@ -136,6 +170,7 @@ def pytest_collection_modifyitems(config: Config, items: List[Function], name_fi
     """
     conditions = (
         config.getoption(ArgumentCLI.LOCK),  # --lock
+        config.getoption(ArgumentCLI.CLEAN),  # --lock
     )
 
     if any(conditions):
@@ -156,7 +191,7 @@ def pytest_configure(config: Config) -> None:
     """
     # Todo : Create a acceptation test for this hook
     # Todo : Create a test for this hook and see if pytest-cache is not created
-    if config.getoption("--lock"):
+    if config.getoption(ArgumentCLI.LOCK):
         # Disable cache file
         def fake_cache(*args, **kwargs):
             pass
