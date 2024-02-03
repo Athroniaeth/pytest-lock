@@ -50,7 +50,7 @@ class MixinLock(FixtureBase, ABC):
 
         if self.config.ask_clean:
             self.cache_system.delete_lock()
-            pytest.skip("Clean cache file")
+            return  # pytest.exit don't return "passed"
 
         # Create new lock and get old lock
         new_lock = Lock.from_function_and_arguments(function, arguments)
