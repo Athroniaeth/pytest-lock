@@ -9,7 +9,7 @@ def test_lock_change_result(pytester: Pytester) -> None:
     old_test_path = pytester.copy_example("scenarios/lock_change_result/test_step_1.py")
 
     result = pytester.runpytest(ArgumentCLI.LOCK)
-    result.assert_outcomes(skipped=1)
+    result.assert_outcomes(passed=1)
 
     # Now the test is lock, change with test_step_2.py and run pytest again
     new_test_path = pytester.copy_example("scenarios/lock_change_result/test_step_2.py")
@@ -26,7 +26,7 @@ def test_lock_change_result_type(pytester: Pytester) -> None:
     old_test_path = pytester.copy_example("scenarios/lock_change_result_type/test_step_1.py")
 
     result = pytester.runpytest(ArgumentCLI.LOCK)
-    result.assert_outcomes(skipped=1)
+    result.assert_outcomes(passed=1)
 
     # Now the test is lock, change with test_step_2.py and run pytest again
     new_test_path = pytester.copy_example("scenarios/lock_change_result_type/test_step_2.py")

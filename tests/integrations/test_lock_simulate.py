@@ -10,7 +10,7 @@ def test_lock_change_date_today(pytester: Pytester) -> None:
 
     result = pytester.runpytest(ArgumentCLI.LOCK, ArgumentCLI.SIMULATE)
 
-    result.assert_outcomes(skipped=1)
+    result.assert_outcomes(passed=1)
 
     # Check if the lock is simulated (not created)
     path_cache = pytester.path / ".pytest_cache" / "cache" / "test_fixture_lock.json"

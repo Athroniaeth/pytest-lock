@@ -15,7 +15,7 @@ def test_lock_diversified(pytester: Pytester) -> None:
     # Todo : Check that the cache is writing 2 separate files
 
     result = pytester.runpytest(ArgumentCLI.LOCK)
-    result.assert_outcomes(skipped=number_tests)
+    result.assert_outcomes(passed=number_tests)
 
     result = pytester.runpytest()
     result.assert_outcomes(passed=number_tests)

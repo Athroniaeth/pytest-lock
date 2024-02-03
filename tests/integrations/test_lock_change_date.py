@@ -14,7 +14,7 @@ def test_lock_change_date_today(pytester: Pytester) -> None:
     pytester.copy_example("scenarios/test_fixture_lock.py")
 
     result = pytester.runpytest(ArgumentCLI.LOCK, ArgumentCLI.LOCK_DATE, f"{today}")
-    result.assert_outcomes(skipped=1)
+    result.assert_outcomes(passed=1)
 
     result = pytester.runpytest()
     result.assert_outcomes(passed=1)
@@ -29,7 +29,7 @@ def test_lock_change_date_yesterday(pytester: Pytester) -> None:
     pytester.copy_example("scenarios/test_fixture_lock.py")
 
     result = pytester.runpytest(ArgumentCLI.LOCK, ArgumentCLI.LOCK_DATE, f"{yesterday}")
-    result.assert_outcomes(skipped=1)
+    result.assert_outcomes(passed=1)
 
     result = pytester.runpytest()
     result.assert_outcomes(failed=1)
@@ -44,7 +44,7 @@ def test_lock_change_date_tomorrow(pytester: Pytester) -> None:
     pytester.copy_example("scenarios/test_fixture_lock.py")
 
     result = pytester.runpytest(ArgumentCLI.LOCK, ArgumentCLI.LOCK_DATE, f"{tomorrow}")
-    result.assert_outcomes(skipped=1)
+    result.assert_outcomes(passed=1)
 
     result = pytester.runpytest()
     result.assert_outcomes(passed=1)
