@@ -25,5 +25,4 @@ list_valid_extensions = ParserFileBuilder().mapping.keys()
 ])
 def test_sum(lock_test: FixtureLock, extension: str, args: List[Any]):
     """ Scenario """
-    lock_test.change_parser(extension)
-    lock_test.lock(sum, (args,))
+    lock_test.lock(sum, (args,), extension)
