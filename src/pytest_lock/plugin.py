@@ -22,7 +22,7 @@ from pytest_lock.models.exceptions import LockCLIException
 
 CACHE_LOCK_PATH = ".pytest_lock"
 TESTS_PATH = "tests"
-EXTENSION = ".json"
+EXTENSION = ".pickle"
 
 
 def pytest_addoption(parser: Config):
