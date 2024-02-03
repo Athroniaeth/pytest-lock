@@ -60,3 +60,52 @@ def test_good_arguments(pytester: Pytester, arguments: List[str]):
     result = pytester.runpytest(*arguments)
 
     result.assert_outcomes(passed=1)
+
+
+@pytest.mark.parametrize(
+    "arguments",
+    [
+        [ArgumentCLI.ONLY_SKIP],  # Can't 'only-skip' a clean cache
+        [ArgumentCLI.LOCK_DATE, "2000/01/01"],  # Can't set a date to a clean cache
+    ],
+)
+def test_bad_arguments_clean(pytester: Pytester, arguments: List[str]):
+    pytester.copy_example("conftest.py")
+    pytester.copy_example("scenarios/test_fixture_lock.py")
+
+    result = pytester.runpytest(ArgumentCLI.LOCK)
+    result.assert_outcomes(passed=1)
+    assert result.ret == 0
+
+    # Check if "scenarios/test_fixture_call.json" was created
+    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.json").exists()
+
+    arguments += [ArgumentCLI.LOCK, ArgumentCLI.CLEAN]
+    result = pytester.runpytest(*arguments)
+    result.assert_outcomes(errors=1)
+
+
+@pytest.mark.parametrize(
+    "arguments",
+    [
+        [ArgumentCLI.SIMULATE],  # Can simulate a clean cache
+    ],
+)
+def test_good_arguments_clean(pytester: Pytester, arguments: List[str]):
+    pytester.copy_example("conftest.py")
+    pytester.copy_example("scenarios/test_fixture_lock.py")
+
+    result = pytester.runpytest(ArgumentCLI.LOCK)
+    result.assert_outcomes(passed=1)
+    assert result.ret == 0
+
+    # Check if "scenarios/test_fixture_call.json" was created
+    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.json").exists()
+
+    arguments += [ArgumentCLI.LOCK, ArgumentCLI.CLEAN]
+    result = pytester.runpytest(*arguments)
+    result.assert_outcomes(passed=1)
+    assert result.ret == 0
+
+    # Check if "scenarios/test_fixture_call.json" is not deleted (simulate mode)
+    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.json").exists()
