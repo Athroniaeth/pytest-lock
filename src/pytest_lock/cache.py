@@ -60,3 +60,13 @@ class CacheLock:
                 return other_lock
 
         return None
+
+    def delete_lock(self):
+        """Delete a cache file if exist."""
+        file_cache_path = self.config.get_file_cache()
+
+        if file_cache_path.exists():
+            file_cache_path.unlink()
+            logging.info(f"Delete cache file '{file_cache_path}'")
+        else:
+            logging.info(f"No cache file found at '{file_cache_path}'")
