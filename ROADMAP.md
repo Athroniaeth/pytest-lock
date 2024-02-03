@@ -27,15 +27,32 @@ additions (such as configurations, unforeseen functionality) through the use of 
 
 ## Tasks
 
----
-
-### branch: *"feature/fixture-lock-pickle"*
+### branch: *"feature/fixture-lock-clean"*
 
 * **Status:** _Finish_
 * **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
 
 - [ ] Add `clean-all` method to clean all cache files, even those who don't have tests associated with fixture `lock`
 - [ ] Add `clean-unused` method to clean all cache files who don't have tests associated with fixture `lock`
+
+---
+
+### branch: *"feature/fixture-lock-data"*
+
+* **Status:** _Finish_
+* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
+
+- [ ] Add support for `lock.lock` data library in different formats (json, pickle, etc.)
+  - [ ] Add pypi option for install this feature
+    - [ ] `pip install pytest-lock[pandas]`
+    - [ ] `pip install pytest-lock[polars]`
+    - [ ] `pip install pytest-lock[numpy]`
+    
+  - [ ] Add support for `pandas.DataFrame`
+  - [ ] Add support for `pandas.Series`
+  - [ ] Add support for `polars.DataFrame`
+  - [ ] Add support for `polars.Series`
+  - [ ] Add support for `numpy.ndarray`
 
 
 ## Examples to test
@@ -59,8 +76,17 @@ from pytest_lock import FixtureLock
 def test_something(lock: FixtureLock):
     args = [1, 2, 3]
     lock.change_parser('.json')
-    lock.change_parser('.pickle')
     lock.lock(sum, (args,))  # use the lock function to lock the result of the test
+    ...
+``` 
+
+```python
+from pytest_lock import FixtureLock
+
+
+def test_something(lock: FixtureLock):
+    args = [1, 2, 3]
+    lock.lock(sum, (args,), extension='.json')  # use the lock function to lock the result of the test
     ...
 ``` 
 
@@ -84,4 +110,8 @@ pytest --lock --only-skip
 
 ```bash
 pytest --lock --lock-date 13/12/2023
+```
+
+```bash
+pytest --lock --clean
 ```
