@@ -9,6 +9,7 @@ import pytest
 
 from pytest_lock.fixtures.base import FixtureBase
 from pytest_lock.models.cache.lock import Lock
+from pytest_lock.models.exceptions import LockException
 from pytest_lock.parser_file.builder import ParserFileBuilder
 
 if sys.version_info >= (3, 12):
@@ -45,6 +46,10 @@ class MixinLock(FixtureBase, ABC):
     def lock(self, function: Callable, arguments: Tuple[Any, ...], extension: Optional[str] = None) -> None:
         # Hides the execution of the error; the error will be visible in the test file.
         __tracebackhide__ = True
+
+        if not isinstance(arguments, tuple):
+            # Todo : Add test for invalid arguments
+            raise LockException("Arguments must be in a tuple\n'lock.lock(function, arguments)' -> 'lock.lock(function, (arguments,))'")
 
         self.change_parser(extension)
 
