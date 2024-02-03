@@ -42,9 +42,15 @@ class MixinLock(FixtureBase, ABC):
     """Mixin for lock.lock fixture."""
 
     @override
-    def lock(self, function: Callable, arguments: Tuple[Any, ...]) -> None:
+    def lock(self, function: Callable, arguments: Tuple[Any, ...], extension: Optional[str] = None) -> None:
         # Hides the execution of the error; the error will be visible in the test file.
         __tracebackhide__ = True
+
+        self.change_parser(extension)
+
+        if self.config.ask_clean:
+            self.cache_system.delete_lock()
+            pytest.skip("Clean cache file")
 
         # Create new lock and get old lock
         new_lock = Lock.from_function_and_arguments(function, arguments)
@@ -82,18 +88,20 @@ class MixinLock(FixtureBase, ABC):
             new_lock.expiration_date = self.config.is_lock_date
 
         conditions = (
-            old_lock is not None and self.config.only_skip,
+            old_lock is not None,
+            self.config.ask_only_skip,
             # If old lock exist and 'only-skip' is activated, don't write
         )
 
-        if not any(conditions):
+        if not all(conditions):
             if not self.config.is_simulate:
                 self.cache_system.write_lock(new_lock)
                 logging.info(f"Write in the cache file with result '{new_lock.result}'")
             else:
                 logging.info(f"[Simulate] Write in the cache file with result '{new_lock.result}'")
 
-            pytest.skip(f"Write in the cache file with result {new_lock.result}")
+        else:
+            pytest.skip("Skip lock because lock already exist")
 
     def _check_lock(self, new_lock: Lock, old_lock: Optional[Lock]) -> None:
         """
@@ -124,7 +132,7 @@ class MixinLock(FixtureBase, ABC):
             logging.info(f"Lock found, result {old_lock.result}, expiration date on '{old_date}'")
             assert old_date >= today, f"The lock is invalid due to the expiration date, please restart its lock ({old_date} > {today})"
 
-    def change_parser(self, extension: str) -> None:
+    def change_parser(self, extension: Optional[str]) -> None:
         """
         Change the extension of parser file.
 
@@ -136,6 +144,7 @@ class MixinLock(FixtureBase, ABC):
             extension: The new extension of parser file
         """
 
-        builder = ParserFileBuilder()
-        self.cache_system.parser = builder.build(extension)  # without this, cache will open file with old parser
-        self.config.extension = extension  # without this, cache will open file with old extension
+        if extension is not None:
+            builder = ParserFileBuilder()
+            self.cache_system.parser = builder.build(extension)  # without this, cache will open file with old parser
+            self.config.extension = extension  # without this, cache will open file with old extension
