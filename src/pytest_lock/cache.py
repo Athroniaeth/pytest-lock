@@ -1,6 +1,8 @@
 import logging
 from typing import Optional
 
+import pytest
+
 from pytest_lock.config import LockConfig
 from pytest_lock.models.cache.lock import Lock
 from pytest_lock.parser_file.builder import ParserFileBuilder
@@ -62,11 +64,14 @@ class CacheLock:
         return None
 
     def delete_lock(self):
-        """Delete a cache file if exist."""
+        """Delete a cache file if existed."""
         file_cache_path = self.config.get_file_cache()
 
         if file_cache_path.exists():
-            file_cache_path.unlink()
-            logging.info(f"Delete cache file '{file_cache_path}'")
+            if not self.config.is_simulate:
+                file_cache_path.unlink()
+                logging.info(f"Delete cache file '{file_cache_path}'")
+            else:
+                logging.info(f"[Simulate] Delete cache file '{file_cache_path}'")
         else:
             logging.info(f"No cache file found at '{file_cache_path}'")
