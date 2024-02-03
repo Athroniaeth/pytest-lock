@@ -26,8 +26,7 @@ EXTENSION = ".json"
 
 def pytest_addoption(parser: Config):
     """Add new argument CLI to pytest."""
-    parser.addoption(ArgumentCLI.LOCK, action="store_true",
-                     help="Activate lock feature, this argument make target only tests with 'lock' fixture.")  # type: ignore
+    parser.addoption(ArgumentCLI.LOCK, action="store_true", help="Activate lock feature, this argument make target only tests with 'lock' fixture.")  # type: ignore
     parser.addoption(ArgumentCLI.SIMULATE, action="store_true", help="Simulate lock feature")  # type: ignore
     parser.addoption(ArgumentCLI.LOCK_DATE, action="store", type=str, help="Activate lock date feature")  # type: ignore
     parser.addoption(ArgumentCLI.ONLY_SKIP, action="store_true", help="Lock only tests without lock")  # type: ignore
@@ -125,13 +124,15 @@ def pytest_collection_modifyitems(config: Config, items: List[Function], name_fi
     """
     Hook to modify tests received by pytest.
 
-    This function allows you to act on tests retrieved by Pytest
-    before they start running. This allows you to ignore certain
-    tests, for example
+    Notes:
+        This function allows you to act on tests retrieved by Pytest
+        before they start running. This allows you to ignore certain
+        tests, for example
 
     Args:
         config: Pytest configuration object.
         items: List of tests received by pytest.
+        name_fixture: Name of the fixture to check.
     """
     conditions = (
         config.getoption(ArgumentCLI.LOCK),  # --lock
@@ -139,3 +140,26 @@ def pytest_collection_modifyitems(config: Config, items: List[Function], name_fi
 
     if any(conditions):
         skip_test_without_lock_fixture(config, items, name_fixture=name_fixture)
+
+
+def pytest_configure(config: Config) -> None:
+    """
+    Hook to configure pytest for disable creation of cache file.
+
+    Notes:
+        When you do "pytest --lock --clean", the cache file is replace
+        by a new empty file. This hook allows you to disable the creation
+        of the cache file when the "--lock" argument is activated.
+
+    Args:
+        config: Pytest configuration object.
+    """
+    # Todo : Create a acceptation test for this hook
+    # Todo : Create a test for this hook and see if pytest-cache is not created
+    if config.getoption("--lock"):
+        # Disable cache file
+        def fake_cache(*args, **kwargs):
+            pass
+
+        config.cache.set = fake_cache
+        config.cache.get = fake_cache
