@@ -1,9 +1,40 @@
 # Changelog
-## v0.1.2 
+
+## Version v1.0.0
+* **Date:** _2024-02-03_
+* **Version:** _>=3.8 and <=3.12_
+* Note : this version break major versioning, because old acceptation test fail for this reason
+
+### branch: *"feature/lock-fixture"*
+
+* **Status:** _Finish_
+* **Note:** Branch containing the base of the pytest fixture 'lock', it must be able to easily integrate new functions, CLI arguments, etc…
+
+- [X] Modified `--lock` argument, now target only test with `lock` fixture
+  - [X] The tests with the `lock` fixture had `skipped` status, now they have `passed` status
+  - [X] The tests without the `lock` fixture had `passed` status, now they have `skipped` status
+
+### branch: *"feature/fixture-lock-pickle"*
+
+* **Status:** _Finish_
+* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
+
+- [X] Add `pickle` extension for `lock.lock` to support more types of data
+
+### branch: *"feature/fixture-lock-clean"*
+
+* **Status:** _Start_
+* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
+
+- [X] If test use `--lock` and `--clean` argument, then clean all unused cache files
+- [X] If test use `--lock` and `--clean` argument and `--only-skip` argument, then do anything, it's certainly a mistake (why clean only test with existing lock ?)
+- [X] If test use `--lock` and `--clean` argument and `--simulate` argument, list all unused cache files who will be removed without remove them.
+- [X] If test use `--lock` and `--clean` argument and `--lock-date` argument, thrown exception (can't lock a remove cache file)
+
+
+## Version v0.1.2 
 * **Date:** _2024-01-27_
 * **Version:** _>=3.8 and <=3.12_
-
----
 
 ### branch: *"feature/lock-fixture"*
 
@@ -12,7 +43,6 @@
 
 - [X] Add fixtures `lock`
 
----
 
 ### branch: *"feature/fixtures-lock-method"*
 
@@ -34,8 +64,6 @@
     - [X] If test use `--lock-date` argument and not `--lock` argument, then it's invalid, throw exception
     - [X] If test use `--only-skip` argument and not `--lock` argument, then it's invalid, throw exception
 
----
-
 ### branch: *"feature/fixture-lock-date-support"*
 
 * **Status:** _Finish_
@@ -46,7 +74,7 @@
 
 ---
 
-## v0.1.0 - v0.1.1
+## Version v0.1.0
 * **Date:** _2024-01-xx_
 * **Version:** _xxxxxx_
 

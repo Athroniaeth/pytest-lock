@@ -13,7 +13,7 @@ that the result of the test is always the same. If the result of the test is dif
 
 ### Reverse tests
 
-this idea has been cancelled because it does not correspond to the purpose of pytest-lock and will be destined, perhaps, for another librairy.
+_this idea has been cancelled because it does not correspond to the purpose of pytest-lock and will be destined, perhaps, for another librairy._
 
 ~~This idea came from the fact that while watching the comments of a YouTube video (which I no longer remember) that it
 was a shame not to be able to do "reverse" tests. The idea is that once we have done our unit tests, if they work, we
@@ -34,43 +34,9 @@ additions (such as configurations, unforeseen functionality) through the use of 
 * **Status:** _Finish_
 * **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
 
-- [X] Add `pickle` extension for `lock.lock` to support more types of data
+- [ ] Add `clean-all` method to clean all cache files, even those who don't have tests associated with fixture `lock`
+- [ ] Add `clean-unused` method to clean all cache files who don't have tests associated with fixture `lock`
 
----
-
-
-### branch: *"feature/fixture-update-lock-target"*
-
-* **Status:** _Start_
-* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
-
-- [ ] Cli argument `--lock` target only test with `lock` fixture
-
----
-
-### branch: *"feature/fixture-lock-clean"*
-
-* **Status:** _Start_
-* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
-
-- [ ] If test use `--lock` and `--clean` argument, then clean all unused cache files
-- [ ] If test use `--lock` and `--clean` argument and `--only-skip` argument, then do anything, it's certainly a mistake (why clean only test with existing lock ?)
-- [ ] If test use `--lock` and `--clean` argument and `--simulate` argument, list all unused cache files who will be removed without remove them.
-- [ ] If test use `--lock` and `--clean` argument and `--lock-date` argument, thrown exception (can't lock a remove cache file)
-
----
-
-### branch: *"feature/fixture-lock-clean-all"*
-
-* **Status:** _Start_
-* **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
-
-- [ ] If test use `--lock` and `--clean-all` argument, then clean all cache files
-- [ ] If test use `--lock` and `--clean-all` argument and `--only-skip` argument, then do anything, it's certainly a mistake (why clean only test with existing lock ?)
-- [ ] If test use `--lock` and `--clean-all` argument and `--simulate` argument, throw exception (why simulate clean ? clean remove all cache files)
-- [ ] If test use `--lock` and `--clean-all` argument and `--lock-date` argument, thrown exception (can't lock a remove cache file)
-
----
 
 ## Examples to test
 
