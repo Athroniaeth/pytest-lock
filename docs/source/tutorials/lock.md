@@ -17,7 +17,22 @@ from pytest_lock import FixtureLock
 
 
 def test_lock_sum(lock: FixtureLock):
-    lock.lock(sum, ([1, 2, 3],))
+    args = [1, 2, 3]
+    lock.lock(sum, (args,))
+```
+
+You can choose the extension of the lock file, you just need to add argument `extension='json'` for example. The default extension is `pickle`. If you choose a extension using string like json, you must lock a function who return a json serializable object.
+
+- `.pickle` _(default extension)_
+- `.json` _(must have StrSupport with `__str__` method)_
+
+```python
+from pytest_lock import FixtureLock
+
+
+def test_lock_sum(lock: FixtureLock):
+    args = [1, 2, 3]
+    lock.lock(sum, (args,), extension='.json')
 ```
 
 ### Locking Tests
@@ -27,7 +42,7 @@ Run pytest with the `--lock` option to generate the lock files:
 pytest --lock
 ```
 
-This will generate JSON files in a `.pytest-lock` directory, storing the results of the locked tests.
+This will generate Pickle or JSON files in a `.pytest-lock/cache` directory, storing the results of the locked tests.
 
 ### Running Tests
 

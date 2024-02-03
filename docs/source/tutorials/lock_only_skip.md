@@ -11,7 +11,8 @@ from pytest_lock import FixtureLock
 
 
 def test_lock_sum(lock: FixtureLock):
-    lock.lock(sum, ([],))
+    args = []
+    lock.lock(sum, (args,))
 ```
 
 ### Locking Tests
@@ -28,16 +29,18 @@ from pytest_lock import FixtureLock
 
 
 def test_lock_sum(lock: FixtureLock):
-    lock.lock(sum, ([],))
+    args = []
+    lock.lock(sum, (args,))
     
 def test_lock_sum_2(lock: FixtureLock):
-    lock.lock(sum, ([1, 2, 3],))
+    args = [1, 2, 3]
+    lock.lock(sum, (args,))
 ```
 
 Run pytest with the `--lock` and `--only-skip` option to generate the lock files:
 
 ```bash
-pytest --lock --lock-only-skip
+pytest --lock --only-skip
 ```
 The lock of `sum` with args `[]` will be skipped, but the lock of sum with args `[1, 2, 3]` will be locked.
 This will generate JSON files in a `.pytest-lock` directory, storing the results of the locked tests.

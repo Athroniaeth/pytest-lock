@@ -18,7 +18,8 @@ from pytest_lock import FixtureLock
 
 
 def test_lock_sum(lock: FixtureLock):
-    lock.lock(sum, ([1, 2, 3],))
+    args = [1, 2, 3]
+    lock.lock(sum, (args,))
 ```
 
 ### Locking Tests
@@ -28,12 +29,4 @@ Run pytest with the `--lock` and `--simulate` option to generate the lock files:
 pytest --lock --simulate
 ```
 
-This will not generate JSON files in a `.pytest-lock` directory and don't store the results of the locked tests.
-
-### Running Tests
-
-Simply run pytest as you normally would:
-
-```bash
-pytest
-```
+This will not generate Pickle files in a `.pytest-lock` directory and don't store the results of the locked tests.
