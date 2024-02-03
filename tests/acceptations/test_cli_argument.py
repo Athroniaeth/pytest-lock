@@ -78,7 +78,7 @@ def test_bad_arguments_clean(pytester: Pytester, arguments: List[str]):
     assert result.ret == 0
 
     # Check if "scenarios/test_fixture_call.json" was created
-    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.json").exists()
+    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.pickle").exists()
 
     arguments += [ArgumentCLI.LOCK, ArgumentCLI.CLEAN]
     result = pytester.runpytest(*arguments)
@@ -100,7 +100,7 @@ def test_good_arguments_clean(pytester: Pytester, arguments: List[str]):
     assert result.ret == 0
 
     # Check if "scenarios/test_fixture_call.json" was created
-    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.json").exists()
+    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.pickle").exists()
 
     arguments += [ArgumentCLI.LOCK, ArgumentCLI.CLEAN]
     result = pytester.runpytest(*arguments)
@@ -108,4 +108,4 @@ def test_good_arguments_clean(pytester: Pytester, arguments: List[str]):
     assert result.ret == 0
 
     # Check if "scenarios/test_fixture_call.json" is not deleted (simulate mode)
-    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.json").exists()
+    assert (pytester.path / ".pytest_lock" / "cache" / "test_fixture_lock.pickle").exists()

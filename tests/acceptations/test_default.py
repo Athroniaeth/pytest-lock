@@ -13,7 +13,7 @@ def test_default_values():
 
     assert EXTENSION == ".pickle"
     assert TESTS_PATH == "tests"
-    assert CACHE_LOCK_PATH == ".pytest_lock/cache"
+    assert CACHE_LOCK_PATH == ".pytest_lock"
 
 
 def test_default_extension(pytester: Pytester):
