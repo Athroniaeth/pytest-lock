@@ -22,9 +22,9 @@ jobs:
   ruff-format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/checkout@v4
         with:
           python-version: 3.12
 
@@ -40,9 +40,9 @@ jobs:
   ruff-lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/checkout@v4
         with:
           python-version: 3.12
 
@@ -58,9 +58,9 @@ jobs:
   bandit-security:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/checkout@v4
         with:
           python-version: 3.12
 
@@ -76,9 +76,9 @@ jobs:
   pytest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/checkout@v4
         with:
           python-version: 3.12
 
@@ -95,9 +95,9 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v3
+        uses: actions/checkout@v4
         with:
           python-version: 3.12
 
