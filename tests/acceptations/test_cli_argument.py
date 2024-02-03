@@ -15,7 +15,6 @@ from pytest_lock.models.exceptions import LockCLIException
         (ArgumentCLI.ONLY_SKIP, "--only-skip"),
         (ArgumentCLI.SIMULATE, "--simulate"),
         (ArgumentCLI.CLEAN, "--clean"),
-        (ArgumentCLI.CLEAN_ALL, "--clean-all"),
     ],
 )
 def test_same_arguments(argument_cli: str, argument_cli_old: str):
@@ -26,6 +25,7 @@ def test_same_arguments(argument_cli: str, argument_cli_old: str):
 @pytest.mark.parametrize(
     "arguments",
     [
+        [ArgumentCLI.CLEAN],  # Can't clean without --lock
         [ArgumentCLI.SIMULATE],  # Can't simulate without --lock
         [ArgumentCLI.ONLY_SKIP],  # Can't 'only-skip' without --lock
         [ArgumentCLI.LOCK_DATE, "2000/01/01"],  # Can't lock-date without --lock
@@ -47,6 +47,7 @@ def test_bad_arguments(pytester: Pytester, arguments: List[str]):
     "arguments",
     [
         [ArgumentCLI.LOCK],
+        [ArgumentCLI.LOCK, ArgumentCLI.CLEAN],
         [ArgumentCLI.LOCK, ArgumentCLI.SIMULATE],
         [ArgumentCLI.LOCK, ArgumentCLI.ONLY_SKIP],
         [ArgumentCLI.LOCK, ArgumentCLI.LOCK_DATE, "2000/01/01"],
