@@ -7,15 +7,17 @@ Pytest will use the fixture 'lock' to give access to the lock feature.
 """
 
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 import pytest
 from _pytest.config import Config
+from _pytest.python import Function
 from pytest import FixtureRequest
 
 from pytest_lock.cache import CacheLock
 from pytest_lock.config import ArgumentCLI, LockConfig
 from pytest_lock.fixture import FixtureLock
+from pytest_lock.hooks.lock import skip_test_without_lock_fixture
 
 CACHE_LOCK_PATH = ".pytest_lock"
 TESTS_PATH = "tests"
@@ -24,19 +26,21 @@ EXTENSION = ".json"
 
 def pytest_addoption(parser: Config):
     """Add new argument CLI to pytest."""
-    parser.addoption(ArgumentCLI.LOCK, action="store_true", help="Activate lock feature")  # type: ignore
+    parser.addoption(ArgumentCLI.LOCK, action="store_true",
+                     help="Activate lock feature, this argument make target only tests with 'lock' fixture.")  # type: ignore
     parser.addoption(ArgumentCLI.SIMULATE, action="store_true", help="Simulate lock feature")  # type: ignore
     parser.addoption(ArgumentCLI.LOCK_DATE, action="store", type=str, help="Activate lock date feature")  # type: ignore
     parser.addoption(ArgumentCLI.ONLY_SKIP, action="store_true", help="Lock only tests without lock")  # type: ignore
+    parser.addoption(ArgumentCLI.CLEAN, action="store_true", help="Clean lock file")  # type: ignore
 
 
 @pytest.fixture(scope="function")
 def lock(
-    pytestconfig: Config,
-    request: FixtureRequest,
-    tests_path: Optional[Path] = None,
-    cache_path: Optional[Path] = None,
-    extension: Optional[str] = None,
+        pytestconfig: Config,
+        request: FixtureRequest,
+        tests_path: Optional[Path] = None,
+        cache_path: Optional[Path] = None,
+        extension: Optional[str] = None,
 ) -> FixtureLock:
     """
     Fixture to give access to lock feature.
@@ -66,11 +70,11 @@ def lock(
 
 
 def _lock(
-    pytestconfig: Config,
-    request: FixtureRequest,
-    tests_path: Optional[Path] = None,
-    cache_path: Optional[Path] = None,
-    extension: Optional[str] = None,
+        pytestconfig: Config,
+        request: FixtureRequest,
+        tests_path: Optional[Path] = None,
+        cache_path: Optional[Path] = None,
+        extension: Optional[str] = None,
 ) -> FixtureLock:
     """
     Fixture function accessible without use like pytest way.
@@ -115,3 +119,23 @@ def _lock(
     lock_fixture = FixtureLock(config, cache_system)
 
     return lock_fixture
+
+
+def pytest_collection_modifyitems(config: Config, items: List[Function], name_fixture="lock") -> None:
+    """
+    Hook to modify tests received by pytest.
+
+    This function allows you to act on tests retrieved by Pytest
+    before they start running. This allows you to ignore certain
+    tests, for example
+
+    Args:
+        config: Pytest configuration object.
+        items: List of tests received by pytest.
+    """
+    conditions = (
+        config.getoption(ArgumentCLI.LOCK),  # --lock
+    )
+
+    if any(conditions):
+        skip_test_without_lock_fixture(config, items, name_fixture=name_fixture)
