@@ -20,6 +20,7 @@
 * **Note:** This branch requires that the branch "feature/fixture-lock-method" be finalized.
 
 - [X] Add `pickle` extension for `lock.lock` to support more types of data
+- [X] Now `pickle` is the default extension for `lock.lock` if no extension is specified
 
 ### branch: *"feature/fixture-lock-clean"*
 
