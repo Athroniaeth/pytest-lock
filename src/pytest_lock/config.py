@@ -21,7 +21,7 @@ class LockConfig:
         is_lock: Activate lock system
         is_simulate: Activate simulate mode
         is_lock_date: Activate lock date
-        only_skip: Activate only skip mode
+        ask_only_skip: Activate only skip mode
 
         extension: Extension of cache file
         date_format: Format of date in cache file
@@ -35,7 +35,9 @@ class LockConfig:
     is_lock: bool
     is_simulate: bool
     is_lock_date: str
-    only_skip: bool
+
+    ask_clean: bool
+    ask_only_skip: bool
 
     extension: str
     date_format: str
@@ -68,15 +70,19 @@ class LockConfig:
         is_lock = pytestconfig.getoption(ArgumentCLI.LOCK)
         is_simulate = pytestconfig.getoption(ArgumentCLI.SIMULATE)
         is_lock_date = pytestconfig.getoption(ArgumentCLI.LOCK_DATE)
-        only_skip = pytestconfig.getoption(ArgumentCLI.ONLY_SKIP)
+
+        ask_clean = pytestconfig.getoption(ArgumentCLI.CLEAN)
+        ask_only_skip = pytestconfig.getoption(ArgumentCLI.ONLY_SKIP)
 
         if not is_lock:
             if is_simulate:
-                raise LockCLIException("Can't activate '--simulate' mode without '--lock'")
+                raise LockCLIException(f"Can't activate '{ArgumentCLI.SIMULATE}' mode without '{ArgumentCLI.LOCK}'")
             if is_lock_date:
-                raise LockCLIException(f"Can't activate '--lock-date', '{is_lock_date}' mode without '--lock'")
-            if only_skip:
-                raise LockCLIException("Can't activate '--only-skip' mode without '--lock'")
+                raise LockCLIException(f"Can't activate '{ArgumentCLI.LOCK_DATE}', '{is_lock_date}' mode without '{ArgumentCLI.LOCK}'")
+            if ask_only_skip:
+                raise LockCLIException(f"Can't activate '{ArgumentCLI.ONLY_SKIP}' mode without '{ArgumentCLI.LOCK}'")
+            if ask_clean:
+                raise LockCLIException(f"Can't activate '{ArgumentCLI.CLEAN}' mode without '{ArgumentCLI.LOCK}'")
 
         return cls(
             tests_path=tests_path,
@@ -85,7 +91,8 @@ class LockConfig:
             is_lock=is_lock,
             is_simulate=is_simulate,
             is_lock_date=is_lock_date,
-            only_skip=only_skip,
+            ask_clean=ask_clean,
+            ask_only_skip=ask_only_skip,
             extension=extension,
             date_format=date_format,
         )
