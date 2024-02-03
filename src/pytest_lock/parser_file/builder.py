@@ -28,6 +28,8 @@ class ParserFileBuilder:
         parser_file = self.mapping.get(extension)
 
         if parser_file is None:
-            raise ValueError("No parser_file file found")
+            # Todo : Add a custom exception
+            # Todo : Add test for check if exception is raised with invalid extension
+            raise ValueError(f"ParserFile not found for extension : '{extension}'")
 
         return parser_file
