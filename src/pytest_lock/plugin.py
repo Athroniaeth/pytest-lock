@@ -196,5 +196,5 @@ def pytest_configure(config: Config) -> None:
         def fake_cache(*args, **kwargs):
             pass
 
-        config.cache.set = fake_cache
-        config.cache.get = fake_cache
+        config.cache.set = fake_cache  # type: ignore
+        config.cache.get = fake_cache  # type: ignore

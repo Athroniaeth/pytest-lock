@@ -5,7 +5,6 @@ import pytest
 from _pytest.config import Config
 
 from pytest_lock.models.cli_argument import ArgumentCLI
-from pytest_lock.models.exceptions import LockCLIException
 
 
 @dataclass
@@ -44,13 +43,13 @@ class LockConfig:
 
     @classmethod
     def from_pytest_run(
-            cls,
-            pytestconfig: Config,
-            request: pytest.FixtureRequest,
-            tests_path: Path,
-            cache_path: Path,
-            extension: str,
-            date_format: str = "%Y/%m/%d",
+        cls,
+        pytestconfig: Config,
+        request: pytest.FixtureRequest,
+        tests_path: Path,
+        cache_path: Path,
+        extension: str,
+        date_format: str = "%Y/%m/%d",
     ) -> "LockConfig":
         """
         Create a LockConfig from pytest run

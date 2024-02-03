@@ -1,8 +1,6 @@
 import logging
 from typing import Optional
 
-import pytest
-
 from pytest_lock.config import LockConfig
 from pytest_lock.models.cache.lock import Lock
 from pytest_lock.parser_file.builder import ParserFileBuilder
